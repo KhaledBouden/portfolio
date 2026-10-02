@@ -1,0 +1,1376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khaled Bouden</title>
+<meta name="description" content="Khaled Bouden, full-stack developer. Web and mobile products, backends, and the tools behind them.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23121212'/%3E%3Ctext x='32' y='42' font-family='Helvetica,Arial,sans-serif' font-size='28' font-weight='300' fill='%23fff' text-anchor='middle'%3EK.%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&display=swap">
+<style>
+/* =========================================================
+   KHALED BOUDEN · PORTFOLIO  (template: build.py turns the image tokens into links, or data URIs with --inline)
+   Monochrome editorial layout: thin geometric uppercase type
+   with black-to-grey fades, pill navigation, circle arrow
+   buttons, boxed stats, stepped project stages, numbered
+   service rows, black "let's talk" footer.
+   ========================================================= */
+:root{
+  --sheet:#FFFFFF;
+  --sheet-2:#F1F1EF;
+  --sheet-3:#E7E7E4;
+  --ink:#121212;
+  --ink-2:#4F4F4D;
+  --ink-3:#8A8A88;
+  --line:#DCDCD9;
+  --line-2:#B9B9B6;
+  --black:#0C0C0C;
+  --white:#FFFFFF;
+  --font:"Outfit","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --pad:clamp(20px,4.5vw,72px);
+  --max:1560px;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0}
+html{background:var(--sheet);scroll-behavior:smooth}
+html.locked{overflow:hidden}
+body{background:var(--sheet);color:var(--ink);font-family:var(--font);font-weight:300;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+::selection{background:var(--ink);color:var(--white)}
+canvas,img{display:block}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* type roles */
+.t{font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;line-height:1.7}
+.display{font-weight:200;text-transform:uppercase;letter-spacing:.06em;line-height:1.04;text-wrap:balance}
+.grad{background:linear-gradient(90deg,var(--ink) 0%,#3d3d3b 40%,#b6b6b3 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad-light{background:linear-gradient(90deg,var(--white) 0%,#d0d0cd 40%,#5c5c5a 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* controls */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:.7em 1.35em;border:1px solid var(--line-2);border-radius:999px;background:transparent;
+  font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;cursor:pointer;
+  transition:background .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease),transform .2s var(--ease)}
+.pill:hover,.pill:focus-visible,.pill.on{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.pill:active{transform:scale(.97)}
+.circ{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--line-2);border-radius:50%;background:transparent;cursor:pointer;flex:none;
+  font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;
+  transition:background .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease),transform .2s var(--ease)}
+.circ svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .5s var(--ease)}
+.circ:hover,.circ:focus-visible,.circ.on{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.circ:active{transform:scale(.95)}
+.circ.big{width:64px;height:64px}
+.circ.big svg{width:20px;height:20px}
+.arr-dr svg{transform:rotate(45deg)}
+.arr-ur svg{transform:rotate(-45deg)}
+.arr-d svg{transform:rotate(90deg)}
+.circ.arr-dr:hover svg{transform:rotate(45deg) translate(2px,0)}
+.circ.arr-ur:hover svg{transform:rotate(-45deg) translate(2px,0)}
+.toggle{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;padding:3px}
+.toggle .pill{border-color:transparent;padding:.65em 1.4em}
+.toggle .pill:not(.on):hover{background:var(--sheet-2);color:var(--ink)}
+.pills-row{display:flex;flex-wrap:wrap;gap:10px}
+
+/* sheet: edge to edge, content on a wide centred grid */
+.sheet{background:var(--sheet);width:100%;position:relative}
+.nav .inner,.talk .inner{max-width:var(--max);margin-left:auto;margin-right:auto}
+.hero,.section{max-width:calc(var(--max) + 2 * var(--pad));margin-left:auto;margin-right:auto}
+
+/* nav */
+.nav{padding:0 var(--pad);border-bottom:1px solid var(--line);animation:fadeIn .8s var(--ease) both}
+.nav .inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;height:78px}
+.wordmark{font-size:15px;font-weight:300;letter-spacing:.2em;text-transform:uppercase}
+.wordmark b{font-weight:500}
+.nav .pills{display:flex;gap:8px}
+.nav .pills .pill{padding:.6em 1.2em}
+.nav .right{display:flex;gap:8px;justify-self:end;align-items:center}
+.burger svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round}
+@media(max-width:960px){
+  .nav .inner{grid-template-columns:1fr auto}
+  .nav .pills{display:none}
+  .nav .right .social{display:none}
+}
+
+/* hero */
+.hero{padding:clamp(36px,6vw,72px) var(--pad) 0}
+.hero h1{text-align:center;font-size:clamp(2.7rem,9vw,8.4rem);letter-spacing:.07em}
+.hero h1 .line{display:block;overflow:hidden;padding-bottom:.04em}
+.hero h1 .line > span{display:block;animation:up 1.1s var(--ease) both}
+.hero h1 .line:nth-child(2) > span{animation-delay:.12s}
+@keyframes up{from{transform:translateY(105%)}to{transform:none}}
+.hero-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(20px,4vw,48px);align-items:start;margin-top:clamp(-30px,-3vw,-8px)}
+.hero-left{padding-top:clamp(16px,4vw,54px);display:flex;flex-direction:column;gap:22px;align-items:flex-start;animation:fadeUp .9s var(--ease) .55s both}
+.hero-right{padding-top:clamp(16px,4vw,54px);text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:clamp(48px,7vw,96px);animation:fadeUp .9s var(--ease) .7s both}
+.blurb{max-width:24ch;font-size:11.5px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;line-height:1.55}
+.skills{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px}
+.skills li{font-size:11.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;transition:transform .5s var(--ease),color .3s var(--ease)}
+.skills li:hover{transform:translateX(-6px);color:var(--ink-3)}
+/* hero piece: a torus in halftone dots (after donut.c); the light follows the pointer */
+.torus{margin:0;width:clamp(230px,31vw,380px);aspect-ratio:5/6;position:relative;border-radius:200px 200px 22px 22px;overflow:hidden;background:var(--black);animation:fadeScale 1.2s var(--ease) .35s both}
+.torus canvas{width:100%;height:100%;touch-action:pan-y}
+.torus .note{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;font-size:9.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:#cfcfcc;border:1px solid #3a3a38;background:rgba(12,12,12,.6);padding:6px 11px;border-radius:999px;white-space:nowrap;pointer-events:none}
+.torus .note i{width:6px;height:6px;border-radius:50%;background:var(--white);animation:blink 2.2s var(--ease) infinite}
+.torus .readout{position:absolute;top:12%;left:0;right:0;display:flex;justify-content:center;gap:14px;font-size:9px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:#6d6d6a;font-variant-numeric:tabular-nums;pointer-events:none}
+@keyframes fadeScale{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:none}}
+@media(max-width:760px){
+  .hero-grid{grid-template-columns:1fr;gap:28px;margin-top:8px}
+  .torus{order:0;justify-self:center;width:min(74vw,320px)}
+  .hero-left{order:1;padding-top:0}
+  .hero-right{order:2;padding-top:0;align-items:flex-start;text-align:left;gap:36px}
+}
+
+/* sections */
+.section{padding:clamp(64px,9vw,120px) var(--pad) 0}
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0ms)}
+.js .reveal.in{opacity:1;transform:none}
+.center{text-align:center}
+.h2{font-size:clamp(2.2rem,6vw,4.8rem)}
+
+/* about */
+.about-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,5vw,72px);align-items:end}
+.about-row h2{position:relative;display:inline-block;padding-right:34px}
+.about-row h2 .circ{position:absolute;right:0;bottom:.1em;width:44px;height:44px;background:var(--sheet)}
+.quote{max-width:46ch;font-size:11.5px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;line-height:1.6;padding-bottom:.6em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin-top:clamp(36px,5vw,64px)}
+.stat{padding:clamp(20px,3.5vw,44px) 16px;text-align:center;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:10px;transition:background .4s var(--ease)}
+.stat:first-child{border-left:0}
+.stat:hover{background:var(--sheet-2)}
+.stat b{font-size:clamp(1.7rem,4.2vw,3.4rem);font-weight:300;letter-spacing:.02em;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:10.5px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+@media(max-width:760px){
+  .about-row{grid-template-columns:1fr;align-items:start}
+  .quote{padding-bottom:0}
+}
+
+/* ---------- featured projects: stages ---------- */
+.proj-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.proj-head .t{color:var(--ink-2);padding-bottom:.4em}
+.proj-sub{display:flex;justify-content:space-between;align-items:baseline;gap:12px 24px;flex-wrap:wrap;margin-top:clamp(28px,4vw,48px);padding-top:22px;border-top:1px solid var(--line)}
+.proj-sub:first-of-type{border-top:0;padding-top:0}
+.proj-sub .name{display:flex;align-items:baseline;gap:14px;font-size:clamp(1.25rem,2.2vw,1.8rem);font-weight:300;letter-spacing:.06em;text-transform:uppercase}
+.proj-sub .name .n{font-size:10.5px;font-weight:500;letter-spacing:.18em;color:var(--ink-3)}
+.proj-sub .t{color:var(--ink-2)}
+.stage{background:var(--sheet-2);border-radius:26px;padding:clamp(18px,3vw,40px);margin-top:clamp(18px,2.5vw,28px);display:grid;gap:clamp(22px,3vw,34px);overflow:hidden;position:relative}
+.stage-note{position:absolute;top:18px;left:22px;font-size:9.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:8px}
+.stage-note i{width:6px;height:6px;border-radius:50%;background:var(--ink);animation:blink 2.2s var(--ease) infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.devices{display:grid;grid-template-columns:minmax(200px,.75fr) 1.6fr;align-items:end;gap:clamp(18px,4vw,56px);padding-top:26px;transform-style:preserve-3d;transition:transform .9s var(--ease);will-change:transform}
+.stage.web .devices{grid-template-columns:minmax(170px,.55fr) 2fr;align-items:end}
+.phone-x{width:min(100%,250px);justify-self:center;aspect-ratio:9/19.3;background:#111;border-radius:38px;padding:8px;box-shadow:0 40px 60px -34px rgba(0,0,0,.55);transform:translateZ(30px)}
+.phone-x .screen{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:#eef1f6}
+.scr{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transform:translateY(14px) scale(1.02);transition:opacity .55s var(--ease),transform .7s var(--ease)}
+.scr.bottom{object-position:bottom}
+.scr.on{opacity:1;transform:none}
+.laptop{position:relative;transform:translateZ(0)}
+.laptop img{width:100%;height:auto;filter:drop-shadow(0 30px 34px rgba(0,0,0,.2))}
+.laptop-x{position:relative;transform:translateZ(0);padding:0 3%}
+.laptop-x .lid{background:#151515;border-radius:16px 16px 4px 4px;padding:9px 9px 11px;box-shadow:0 40px 60px -34px rgba(0,0,0,.5)}
+.laptop-x .screen{position:relative;aspect-ratio:16/10;border-radius:9px;overflow:hidden;background:#ff4a00}
+.laptop-x .screen .scr{transform:none;transition:opacity .55s var(--ease)}
+.laptop-x .screen.dark-bg{background:var(--sheet-2)}
+.laptop-x .base{height:12px;margin:0 -3%;background:linear-gradient(#2c2c2c,#101010);border-radius:0 0 16px 16px}
+.laptop-x .base::before{content:"";display:block;width:14%;height:4px;margin:0 auto;background:#3a3a3a;border-radius:0 0 6px 6px}
+.chip{position:absolute;top:14%;right:9%;display:flex;align-items:center;gap:9px;background:var(--white);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 14px 8px 10px;
+  font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;box-shadow:0 18px 30px -18px rgba(0,0,0,.35);transition:transform .5s var(--ease);z-index:2}
+.stage.web .chip{top:auto;bottom:16%;right:6%}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--line-2);transition:background .4s var(--ease)}
+.chip.held i{background:var(--ink);animation:blink 1.4s var(--ease) infinite}
+.chip.done i{background:var(--ink);animation:none}
+.chip.pop{animation:chipPop .5s var(--ease)}
+@keyframes chipPop{0%{transform:translateY(6px) scale(.96);opacity:.4}100%{transform:none;opacity:1}}
+/* Job Pull stage: a run log card beside the laptop */
+.stage.tool .devices{grid-template-columns:minmax(220px,.62fr) 2fr;align-items:center}
+.log{width:min(100%,300px);justify-self:center;background:var(--black);color:#cfcfcc;border-radius:24px;padding:18px 18px 20px;box-shadow:0 40px 60px -34px rgba(0,0,0,.55);transform:translateZ(30px);display:grid;gap:14px;align-content:start;min-height:272px}
+.log-head{display:flex;justify-content:space-between;align-items:center;font-size:9.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:#8d8d8a;padding-bottom:12px;border-bottom:1px solid #2a2a29}
+.log-head span:last-child{display:flex;align-items:center;gap:7px;color:var(--white)}
+.log-head span:last-child::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--white);animation:blink 1.4s var(--ease) infinite}
+.log ol{list-style:none;padding:0;margin:0;display:none;gap:9px}
+.log ol.on{display:grid}
+.log li{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:11.5px;line-height:1.45;opacity:0;transform:translateY(6px);animation:logIn .5s var(--ease) forwards;animation-delay:calc(var(--i,0) * 260ms + 150ms)}
+.log li s{text-decoration:none;color:#6d6d6a;font-size:10px;letter-spacing:.06em;font-variant-numeric:tabular-nums;padding-top:1px}
+.log li b{font-weight:500;color:var(--white)}
+.log li.sum{margin-top:4px;padding-top:10px;border-top:1px solid #2a2a29;color:var(--white)}
+@keyframes logIn{to{opacity:1;transform:none}}
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.steps button{position:relative;width:100%;text-align:left;background:none;border:0;padding:16px 8px 4px 0;cursor:pointer;display:grid;gap:6px;color:var(--ink-3);transition:color .4s var(--ease)}
+.steps li.on button,.steps button:hover{color:var(--ink)}
+.steps .n{font-size:10px;font-weight:500;letter-spacing:.18em}
+.steps b{font-size:12.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
+.steps small{font-size:12px;line-height:1.5;color:var(--ink-2);font-weight:300}
+.steps .bar{position:absolute;top:0;left:0;right:0;height:2px;background:var(--line-2);overflow:hidden}
+.steps .bar::after{content:"";position:absolute;inset:0;background:var(--ink);transform:scaleX(0);transform-origin:left}
+.steps li.on .bar::after{animation:fill var(--dur,5s) linear forwards}
+.steps li.done .bar::after{transform:none}
+.steps.paused li.on .bar::after{animation-play-state:paused}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.proj-foot{display:flex;justify-content:space-between;align-items:center;gap:16px 24px;flex-wrap:wrap;margin-top:clamp(18px,2.5vw,28px)}
+.proj-foot .t{color:var(--ink-2)}
+@media(max-width:860px){
+  .devices,.stage.web .devices,.stage.tool .devices{grid-template-columns:1fr;gap:26px;padding-top:30px}
+  .log{min-height:0;width:min(100%,360px)}
+  .phone-x{width:min(62vw,230px)}
+  .chip,.stage.web .chip{top:auto;bottom:10%;right:6%}
+  .steps{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){.steps{grid-template-columns:1fr;gap:6px}.steps button{padding-top:12px}}
+
+/* services */
+.sub{max-width:52ch;margin:16px auto 0;font-size:11.5px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;line-height:1.6;color:var(--ink-2)}
+.svc{list-style:none;padding:0;margin:clamp(28px,4vw,44px) auto 0;max-width:820px;display:flex;flex-direction:column;gap:12px}
+.svc li{display:grid;grid-template-columns:40px 1fr 40px;gap:14px;align-items:center}
+.svc .num{font-weight:400;font-size:12px}
+.svc .row{width:100%;padding:.95em 1.4em;font-size:12px;letter-spacing:.14em}
+.svc .arr-d svg{transition:transform .5s var(--ease)}
+.svc li.open .row,.svc li.open .num,.svc li.open .arr-d{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.svc li.open .arr-d svg{transform:rotate(-90deg)}
+.svc .panel{grid-column:2;display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.svc li.open .panel{grid-template-rows:1fr}
+.svc .panel > div{overflow:hidden}
+.svc .panel p{padding:10px 8px 6px;font-size:12.5px;line-height:1.6;color:var(--ink-2);max-width:60ch}
+@media(max-width:560px){.svc li{grid-template-columns:36px 1fr 36px;gap:8px}.svc .circ{width:36px;height:36px}.svc .row{padding:.9em .8em;font-size:11px;letter-spacing:.1em}.svc .panel{grid-column:1 / -1}}
+
+/* talk footer */
+.talk{background:var(--black);color:var(--white);margin-top:clamp(64px,9vw,120px);padding:clamp(40px,6vw,72px) var(--pad) 28px;position:relative;overflow:hidden}
+.talk h2{font-size:clamp(3rem,10.5vw,9.4rem);letter-spacing:.06em;text-align:center;margin-top:10px}
+.talk .pills-row{justify-content:center;gap:12px;margin-top:clamp(20px,3vw,32px)}
+.talk .pill{border-color:#5a5a58;color:var(--white)}
+.talk .pill:hover,.talk .pill.on{background:var(--white);color:var(--ink);border-color:var(--white)}
+.talk .pill.on:hover{background:transparent;color:var(--white);border-color:var(--white)}
+.pill.lg{padding:1.05em 1.9em;font-size:12px;letter-spacing:.16em}
+.pill svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .5s var(--ease)}
+.pill:hover svg{transform:translate(1px,-1px)}
+.legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:clamp(40px,6vw,72px);font-size:9.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:#8d8d8a}
+
+/* ---------- case study overlays ---------- */
+dialog.case{border:0;padding:0;background:var(--sheet);color:var(--ink);width:min(1180px,calc(100vw - 24px));height:min(92vh,1100px);border-radius:22px;overflow:hidden;margin:auto}
+dialog.case::backdrop{background:rgba(12,12,12,.74)}
+dialog.case[open]{animation:dlg .5s var(--ease)}
+@keyframes dlg{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.case-head{position:relative;display:flex;justify-content:space-between;align-items:center;height:64px;padding:0 20px 0 24px;border-bottom:1px solid var(--line)}
+.case-head .prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:transparent}
+.case-head .prog i{display:block;height:100%;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:left}
+.case-body{height:calc(100% - 64px);overflow:auto;display:grid;grid-template-columns:210px 1fr;overscroll-behavior:contain}
+.chapters{border-right:1px solid var(--line)}
+.chapters-in{position:sticky;top:0;padding:28px 18px 28px 24px;display:flex;flex-direction:column}
+.chapters ol{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px}
+.chapters a{display:flex;align-items:center;gap:12px;padding:9px 0;font-size:10.5px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);transition:color .3s var(--ease)}
+.chapters a::before{content:"";width:14px;height:1px;background:var(--line-2);transition:width .4s var(--ease),background .4s var(--ease)}
+.chapters li.on a{color:var(--ink)}
+.chapters li.on a::before{width:26px;background:var(--ink)}
+.chapters a:hover{color:var(--ink)}
+.chapters .hint{margin-top:26px;font-size:9.5px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.7}
+.case-in{min-width:0}
+.case-hero{width:100%;aspect-ratio:2.2;object-fit:cover;object-position:top}
+.ch{padding:clamp(24px,3.5vw,44px) clamp(20px,4vw,52px) 8px}
+.ch:last-child{padding-bottom:52px}
+.ch h3{font-size:clamp(2.4rem,6vw,4.4rem)}
+.ch .lead{font-size:12px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-top:8px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px 20px;margin:26px 0 0;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts dt{font-size:9.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.facts dd{font-size:13.5px;font-weight:400;margin-top:4px}
+.ch h4{display:flex;align-items:baseline;gap:14px;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;margin:0 0 12px}
+.ch h4 .n{color:var(--ink-3);font-weight:400}
+.ch p{font-size:15px;line-height:1.65;color:var(--ink-2);max-width:66ch}
+.ch p + p{margin-top:12px}
+.ch .overview{margin-top:26px}
+.screens{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.screens figure{margin:0}
+.screens img{width:100%;border-radius:18px;border:1px solid var(--line)}
+.screens.wide{grid-template-columns:1fr 1fr}
+.screens.wide img{border-radius:12px}
+.screens figcaption{margin-top:10px;font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.feat{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px 24px}
+.feat li{border-top:1px solid var(--line);padding-top:12px}
+.feat b{display:block;font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.feat span{font-size:13.5px;line-height:1.6;color:var(--ink-2)}
+.case-wide{width:100%;margin:26px 0 8px}
+.case-wide.framed{border:1px solid var(--line);border-radius:14px}
+.ch .pills-row{margin-top:28px}
+
+/* demos inside the case studies */
+.demo{margin-top:24px;border:1px solid var(--line);border-radius:18px;padding:18px 20px 20px;background:var(--sheet)}
+.demo-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.demo-head .t{color:var(--ink-2)}
+.demo .pill{padding:.6em 1.1em;font-size:10.5px}
+.rows{list-style:none;padding:0;margin:0}
+.rows li{display:grid;grid-template-columns:1.1fr 1.3fr auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line);font-size:13px;font-weight:400;max-height:70px;transition:opacity .5s var(--ease),transform .5s var(--ease),max-height .6s var(--ease),padding .6s var(--ease),border-color .6s var(--ease);overflow:hidden}
+.rows li em{font-style:normal;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line);border-radius:999px;padding:4px 9px;white-space:nowrap}
+.rows li.raw span:nth-child(2){font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.rows li.clean{display:none;background:var(--ink);color:var(--white);border-radius:14px;padding:14px 16px;border-top:0}
+.rows li.clean em{color:var(--white);border-color:#5a5a58}
+.demo.done .rows li.raw{opacity:0;transform:translateY(-10px);max-height:0;padding-top:0;padding-bottom:0;border-color:transparent}
+.demo.done .rows li.clean{display:grid;animation:chipPop .6s var(--ease)}
+.slotrow{display:flex;flex-wrap:wrap;gap:8px}
+.slot{position:relative;min-width:84px;padding:.75em 1em;border:1px solid var(--line-2);border-radius:999px;background:transparent;font-size:11.5px;font-weight:500;letter-spacing:.08em;cursor:pointer;font-variant-numeric:tabular-nums;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .2s var(--ease)}
+.slot:hover{border-color:var(--ink)}
+.slot.held{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.slot.taken{color:var(--ink-3);border-style:dashed;cursor:not-allowed}
+.slot.shake{animation:shake .5s var(--ease)}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-5px)}45%{transform:translateX(5px)}70%{transform:translateX(-3px)}}
+.demo-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.demo-foot .msg{font-size:12px;color:var(--ink-2)}
+.ui{border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--sheet-2);display:grid;gap:10px;transition:opacity .3s var(--ease)}
+.ui.swap{opacity:.35}
+.ui-search{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-size:12.5px;color:var(--ink-3)}
+.ui-search svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5;flex:none}
+.ui-row{display:flex;align-items:center;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.ui-row .av{width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--white);display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;letter-spacing:.08em;flex:none}
+.ui-row .txt{flex:1;min-width:0;display:grid;gap:2px}
+.ui-row .txt b{font-size:13px;font-weight:500}
+.ui-row .txt small{font-size:11px;color:var(--ink-3)}
+.ui-row .time{font-size:11px;font-weight:500;letter-spacing:.06em;white-space:nowrap}
+.ui[dir="rtl"]{font-family:"Outfit",Tahoma,"Segoe UI",Arial,sans-serif}
+/* ledger demo (helloMuller) */
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.ledger{list-style:none;padding:0;margin:0}
+.ledger li{border-top:1px solid var(--line);transition:opacity .4s var(--ease)}
+.ledger li[hidden]{display:none}
+.lrow{width:100%;display:grid;grid-template-columns:1.2fr .8fr 1.4fr 28px;gap:12px;align-items:center;padding:12px 0;background:none;border:0;text-align:left;cursor:pointer;font-size:13px}
+.lrow b{font-weight:500}
+.lrow .cl{color:var(--ink-2)}
+.lrow .sv{color:var(--ink-3);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow i{width:26px;height:26px;border:1px solid var(--line-2);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:14px;font-weight:300;transition:transform .5s var(--ease),background .4s var(--ease),color .4s var(--ease)}
+.ledger li.open .lrow i{transform:rotate(45deg);background:var(--ink);color:var(--white);border-color:var(--ink)}
+.lpanel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.ledger li.open .lpanel{grid-template-rows:1fr}
+.lpanel > div{overflow:hidden}
+.lpanel p{padding:0 0 14px;font-size:13.5px;line-height:1.6;color:var(--ink-2);max-width:60ch}
+.lpanel p em{font-style:italic;color:var(--ink)}
+/* responsive demo (helloMuller) */
+.resp{display:grid;gap:14px}
+.resp-track{background:var(--sheet-2);border-radius:14px;padding:16px;display:flex;justify-content:center}
+.resp-frame{position:relative;height:320px;width:100%;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#ff4a00;transition:width .25s var(--ease)}
+.resp-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .35s var(--ease)}
+.resp-frame.mobile .d{opacity:0}
+.resp-frame:not(.mobile) .m{opacity:0}
+.resp input[type=range]{width:100%;accent-color:var(--ink)}
+/* request budget demo (Job Pull) */
+.meter{display:flex;height:34px;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--sheet-2);margin-top:16px}
+.meter i{display:block;height:100%;width:0;transition:width .7s var(--ease)}
+.meter i:nth-child(1){background:var(--ink)}
+.meter i:nth-child(2){background:#6f6f6d}
+.meter i:nth-child(3){background:#b4b4b1}
+.legend{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--ink)}
+.legend li:nth-child(2)::before{background:#6f6f6d}
+.legend li:nth-child(3)::before{background:#b4b4b1}
+.legend b{font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.big-num{font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:300;letter-spacing:.02em;font-variant-numeric:tabular-nums;line-height:1}
+/* closure demo (Job Pull) */
+.runs{list-style:none;padding:0;margin:4px 0 16px;display:flex;gap:10px;flex-wrap:wrap;min-height:58px;align-items:flex-start}
+.runs li{display:grid;justify-items:center;gap:6px;font-size:9.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);animation:chipPop .45s var(--ease)}
+.runs li i{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:13px}
+.runs li.seen i{background:var(--ink)}
+.runs li.miss i{background:transparent}
+.runs li.blocked i{border-style:dashed;border-color:var(--ink-3);color:var(--ink-3)}
+.runs li.closed i{background:var(--ink);color:var(--white);border-color:var(--ink);width:auto;padding:0 12px;border-radius:999px;font-size:9.5px;letter-spacing:.14em}
+.state{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line-2);border-radius:999px;padding:5px 11px;transition:background .4s var(--ease),color .4s var(--ease)}
+.state.closed{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.demo .pill:disabled{opacity:.35;cursor:not-allowed;background:transparent;color:var(--ink);border-color:var(--line-2)}
+/* light / dark demo (Job Pull) */
+.themes{position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;aspect-ratio:16/10;background:var(--sheet-2)}
+.themes img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .5s var(--ease)}
+.themes img.dk{opacity:0}
+.themes.dark img.dk{opacity:1}
+@media(max-width:860px){
+  .case-body{grid-template-columns:1fr}
+  .chapters{border-right:0}
+  .chapters-in{padding:0;background:var(--sheet);border-bottom:1px solid var(--line)}
+  .chapters ol{flex-direction:row;overflow-x:auto;gap:0;padding:0 12px;scrollbar-width:none}
+  .chapters ol::-webkit-scrollbar{display:none}
+  .chapters a{padding:14px 10px;white-space:nowrap}
+  .chapters a::before{display:none}
+  .chapters li.on a{box-shadow:inset 0 -2px 0 var(--ink)}
+  .chapters .hint{display:none}
+  .screens{grid-template-columns:1fr 1fr}
+  .screens:not(.wide) figure:last-child{grid-column:span 2;max-width:50%;justify-self:center}
+  .screens.wide{grid-template-columns:1fr}
+  .rows li{grid-template-columns:1fr auto;font-size:12px}
+  .rows li span:nth-child(2){grid-column:1 / -1}
+  .lrow{grid-template-columns:1fr 28px}
+  .lrow .cl,.lrow .sv{display:none}
+  .resp-frame{height:240px}
+}
+
+/* menu overlay */
+.menu{position:fixed;inset:0;z-index:70;background:var(--sheet);display:flex;flex-direction:column;padding:0 var(--pad) 32px;visibility:hidden;opacity:0;transition:opacity .4s var(--ease),visibility 0s .4s}
+.menu.open{visibility:visible;opacity:1;transition:opacity .4s var(--ease)}
+.menu-head{display:flex;justify-content:space-between;align-items:center;height:78px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.menu a.big{font-weight:200;font-size:clamp(2.4rem,10vw,5rem);letter-spacing:.06em;text-transform:uppercase;line-height:1.1;padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;
+  transform:translateY(24px);opacity:0;transition:transform .7s var(--ease),opacity .7s var(--ease)}
+.menu.open a.big{transform:none;opacity:1;transition-delay:calc(var(--i)*70ms + 100ms)}
+.menu a.big small{font-size:11px;font-weight:400;letter-spacing:.14em;color:var(--ink-3)}
+.menu .socials{display:flex;gap:8px;margin-top:auto;padding-top:28px}
+
+/* to-top */
+.totop{position:fixed;right:22px;bottom:22px;z-index:50;background:var(--sheet);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .nav,.hero h1 .line > span,.hero-left,.hero-right,.torus,.torus .note i,.stage-note i,.chip i,.chip.pop{animation:none!important}
+  .steps li.on .bar::after{animation:none;transform:none}
+  .menu a.big,.menu.open a.big,.svc .panel,.devices,.scr,.lpanel,.resp-frame,.meter i,.themes img{transition:none}
+  .log li,.runs li{animation:none;opacity:1;transform:none}
+  .log-head span:last-child::before{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <header class="nav"><div class="inner">
+    <a class="wordmark" href="#top">Khaled<b>.</b></a>
+    <nav class="pills" aria-label="Primary">
+      <a class="pill" href="#top">Home</a>
+      <a class="pill" href="#about">About me</a>
+      <a class="pill" href="#services">Services</a>
+      <a class="pill" href="#projects">Projects</a>
+    </nav>
+    <div class="right">
+      <a class="circ social" href="https://github.com/KhaledBouden" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
+      <a class="circ social" href="khaled-bouden-cv.pdf" target="_blank" rel="noopener" aria-label="CV (PDF)">CV</a>
+      <button class="circ burger" type="button" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 16 16"><path d="M2 5h12M2 11h12"/></svg></button>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- ================= HERO ================= -->
+    <section class="hero" aria-label="Introduction">
+      <h1 class="display"><span class="line"><span class="grad">Explore my</span></span><span class="line"><span class="grad">Portfolio</span></span></h1>
+      <div class="hero-grid">
+        <div class="hero-left">
+          <p class="t">Developer est. 2023</p>
+          <a class="circ big arr-dr" href="#about" aria-label="Scroll to about"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <!-- Hero piece: a torus drawn as halftone dots, after Andy Sloane's donut.c. Pointer = light source. -->
+        <figure class="torus">
+          <canvas aria-hidden="true"></canvas>
+          <div class="readout" aria-hidden="true"><span id="torusA">A 0.00</span><span id="torusL">Light 10:30</span></div>
+          <span class="note"><i></i>donut.c · move the light</span>
+          <figcaption class="sr">A rotating torus drawn in halftone dots, after Andy Sloane's donut.c. The light follows your pointer.</figcaption>
+        </figure>
+        <div class="hero-right">
+          <p class="blurb">I build web and mobile products that stand out from the crowd.</p>
+          <ul class="skills">
+            <li>Web apps</li>
+            <li>Mobile apps</li>
+            <li>Backend &amp; APIs</li>
+            <li>UI engineering</li>
+            <li>React / TypeScript</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="section" id="about" aria-labelledby="about-h">
+      <div class="about-row reveal">
+        <h2 class="display h2" id="about-h"><span class="grad">About</span><a class="circ arr-ur" href="#contact" aria-label="Go to contact"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h2>
+        <p class="quote">“Khaled Bouden is a freelance software developer known for clean interfaces and solid engineering behind them.”</p>
+      </div>
+      <!-- Figures from the CV (khaled-bouden-cv.pdf): keep the two in step. -->
+      <div class="stats reveal" style="--d:120ms">
+        <div class="stat"><b>3+</b><span>Years shipping production</span></div>
+        <div class="stat"><b>446</b><span>REST endpoints in production</span></div>
+        <div class="stat"><b>260</b><span>End-to-end test scenarios</span></div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURED PROJECTS ================= -->
+    <section class="section" id="projects" aria-labelledby="projects-h">
+      <div class="proj-head reveal">
+        <h2 class="display h2" id="projects-h"><span class="grad">Featured projects</span></h2>
+        <p class="t">Three builds · an app, a website and an engine</p>
+      </div>
+
+      <!-- 01 · Tabeebi: the phone walks through the patient flow, the clinic calendar chip answers every step. -->
+      <div class="proj-sub reveal">
+        <p class="name"><span class="n">01</span>Tabeebi</p>
+        <p class="t">Healthcare booking platform · UAE</p>
+      </div>
+      <div class="stage reveal" data-stage="tabeebi" style="--d:100ms">
+        <p class="stage-note"><i></i>Both sides read the same calendar</p>
+        <div class="devices">
+          <div class="phone-x" aria-hidden="true"><div class="screen">
+            <img class="scr on" data-step="0" src="assets/tabeebi/result-home.webp" loading="lazy" decoding="async" alt="">
+            <img class="scr" data-step="1" src="assets/tabeebi/result-doctor.webp" loading="lazy" decoding="async" alt="">
+            <img class="scr" data-step="2" src="assets/tabeebi/result-confirmed.webp" loading="lazy" decoding="async" alt="">
+            <img class="scr bottom" data-step="3" src="assets/tabeebi/result-home.webp" loading="lazy" decoding="async" alt="">
+          </div></div>
+          <div class="laptop">
+            <img src="assets/tabeebi/clinic-dashboard-device.webp" loading="lazy" decoding="async" alt="Clinic dashboard on a laptop showing today's appointments">
+            <div class="chip" aria-live="polite"><i></i><span class="chipText">Tue 14 Jul · 10:30 open</span></div>
+          </div>
+        </div>
+        <ol class="steps" aria-label="Patient flow">
+          <li class="on"><button type="button"><i class="bar"></i><span class="n">01</span><b>Find a specialist</b><small>Search by name, clinic, or symptom. Verified doctors only.</small></button></li>
+          <li><button type="button"><i class="bar"></i><span class="n">02</span><b>Hold the slot</b><small>The write path locks 10:30 the moment it is tapped.</small></button></li>
+          <li><button type="button"><i class="bar"></i><span class="n">03</span><b>Confirmed</b><small>A calendar invite is on its way. The clinic sees it at once.</small></button></li>
+          <li><button type="button"><i class="bar"></i><span class="n">04</span><b>Reminded</b><small>48 hours, 24 hours, and one the patient sets.</small></button></li>
+        </ol>
+      </div>
+      <div class="proj-foot reveal" style="--d:200ms">
+        <p class="t">iOS, Android, web · English &amp; Arabic · live in all seven emirates</p>
+        <div class="pills-row">
+          <button class="pill on" type="button" data-case="tabeebi">Read the case study</button>
+          <a class="pill" href="https://tabeebi.ae" target="_blank" rel="noopener">tabeebi.ae</a>
+        </div>
+      </div>
+
+      <!-- 02 · helloMuller: the laptop and phone walk through the site, the chip names where you are. Screens are live captures of hellomuller.com. -->
+      <div class="proj-sub reveal">
+        <p class="name"><span class="n">02</span>helloMuller</p>
+        <p class="t">Studio website and catalogue · brand identity studio</p>
+      </div>
+      <div class="stage web reveal" data-stage="muller" style="--d:100ms">
+        <p class="stage-note"><i></i>One colour, one typeface, the work first</p>
+        <div class="devices">
+          <div class="phone-x" aria-hidden="true"><div class="screen">
+            <img class="scr on" data-step="0" src="assets/muller/home-mobile.webp" loading="lazy" decoding="async" alt="">
+            <img class="scr" data-step="1" src="assets/muller/home-mobile-s1.webp" loading="lazy" decoding="async" alt="">
+            <img class="scr" data-step="2" src="assets/muller/home-mobile-s2.webp" loading="lazy" decoding="async" alt="">
+            <img class="scr" data-step="3" src="assets/muller/projects-mobile-s1.webp" loading="lazy" decoding="async" alt="">
+          </div></div>
+          <div class="laptop-x">
+            <div class="lid"><div class="screen">
+              <img class="scr on" data-step="0" src="assets/muller/home-1440.webp" loading="lazy" decoding="async" alt="hellomuller.com home page: an orange screen with the studio mark">
+              <img class="scr" data-step="1" src="assets/muller/home-s1.webp" loading="lazy" decoding="async" alt="Studio statement and the featured projects ledger">
+              <img class="scr" data-step="2" src="assets/muller/home-s2.webp" loading="lazy" decoding="async" alt="An open project row with its story and artwork">
+              <img class="scr" data-step="3" src="assets/muller/projects-s1.webp" loading="lazy" decoding="async" alt="The projects catalogue page">
+            </div></div>
+            <div class="base"></div>
+            <div class="chip" aria-live="polite"><i></i><span class="chipText">hellomuller.com · the curtain</span></div>
+          </div>
+        </div>
+        <ol class="steps" aria-label="Site walkthrough">
+          <li class="on"><button type="button"><i class="bar"></i><span class="n">01</span><b>Arrive</b><small>An orange curtain, the mark, and nothing else.</small></button></li>
+          <li><button type="button"><i class="bar"></i><span class="n">02</span><b>Read</b><small>The studio statement, then featured projects as a ledger of rows.</small></button></li>
+          <li><button type="button"><i class="bar"></i><span class="n">03</span><b>Open a row</b><small>Each row expands in place into the story and the work.</small></button></li>
+          <li><button type="button"><i class="bar"></i><span class="n">04</span><b>Browse the catalogue</b><small>67 projects on one page, in the same row system.</small></button></li>
+        </ol>
+      </div>
+      <div class="proj-foot reveal" style="--d:200ms">
+        <p class="t">Home, projects, about · desktop to phone · Awwwards honorable mention 2023</p>
+        <div class="pills-row">
+          <button class="pill on" type="button" data-case="muller">Read the case study</button>
+          <a class="pill" href="https://hellomuller.com" target="_blank" rel="noopener">hellomuller.com</a>
+        </div>
+      </div>
+
+      <!-- 03 · Job Pull: the laptop walks through the operator's panel, the run log card narrates each step.
+           Panel screens are the real UI fed by a mock API with invented companies and people. -->
+      <div class="proj-sub reveal" id="p-jobpull">
+        <p class="name"><span class="n">03</span>Job Pull</p>
+        <p class="t">Hiring-signal engine · internal tool for a software agency</p>
+      </div>
+      <div class="stage tool reveal" data-stage="jobpull" style="--d:100ms">
+        <p class="stage-note"><i></i>Hiring is the buying signal</p>
+        <div class="devices">
+          <div class="log" aria-hidden="true">
+            <div class="log-head"><span>Runner · Platform Berlin</span><span>Live</span></div>
+            <ol class="on" data-step="0">
+              <li style="--i:0"><s>09:14</s><span>Run starts, logged out</span></li>
+              <li style="--i:1"><s>09:14</s><span>Page 1 · 10 cards · <b>7 new</b></span></li>
+              <li style="--i:2"><s>09:15</s><span>Page 2 · 10 cards · <b>4 new</b></span></li>
+              <li style="--i:3"><s>09:15</s><span>Page 3 · all seen · stop early</span></li>
+              <li class="sum" style="--i:4"><s>Cost</s><span><b>3 requests</b> · run ok</span></li>
+            </ol>
+            <ol data-step="1">
+              <li style="--i:0"><s>Store</s><span>30 sightings recorded</span></li>
+              <li style="--i:1"><s>Store</s><span><b>11</b> new postings · <b>6</b> new companies</span></li>
+              <li style="--i:2"><s>Signal</s><span>Halden Logistics · <b>4 open roles</b></span></li>
+              <li style="--i:3"><s>Signal</s><span>Kestrel Health · a platform role, 3 misses</span></li>
+              <li class="sum" style="--i:4"><s>Closed</s><span><b>Probably filled</b> · a good week to call</span></li>
+            </ol>
+            <ol data-step="2">
+              <li style="--i:0"><s>Worker</s><span>Northwind Robotics</span></li>
+              <li style="--i:1"><s>Website</s><span>Proven by its own imprint</span></li>
+              <li style="--i:2"><s>People</s><span><b>3</b> from the team page</span></li>
+              <li style="--i:3"><s>Format</s><span>first.last · from 38 commits</span></li>
+              <li class="sum" style="--i:4"><s>Budget</s><span>Never LinkedIn · 412 of 2,000 pages today</span></li>
+            </ol>
+            <ol data-step="3">
+              <li style="--i:0"><s>Follow up</s><span><b>2</b> due today</span></li>
+              <li style="--i:1"><s>Ready</s><span>Jonas Haverkamp · Halden Logistics</span></li>
+              <li style="--i:2"><s>Why now</s><span>“Four backend seats in Hamburg, the newest 5 hours old.”</span></li>
+              <li style="--i:3"><s>Reach</s><span>Phone · email · direct, not an agency</span></li>
+              <li class="sum" style="--i:4"><s>Log it</s><span>One click · follow-up in 3 workdays</span></li>
+            </ol>
+          </div>
+          <div class="laptop-x">
+            <div class="lid"><div class="screen dark-bg">
+              <img class="scr on" data-step="0" src="assets/jobpull/runs.webp" loading="lazy" decoding="async" alt="Job Pull panel: 144 of 182 postings still open, nine saved runners, and the recent runs">
+              <img class="scr" data-step="1" src="assets/jobpull/companies.webp" loading="lazy" decoding="async" alt="Companies sorted by open roles, with Northwind Robotics' detail open">
+              <img class="scr" data-step="2" src="assets/jobpull/enrichment.webp" loading="lazy" decoding="async" alt="The enrichment log: Northwind Robotics' website, contacts, GitHub and email format, each found">
+              <img class="scr" data-step="3" src="assets/jobpull/pipeline.webp" loading="lazy" decoding="async" alt="The Pipeline queue: two follow-ups due, then Halden Logistics first in Ready to contact">
+            </div></div>
+            <div class="base"></div>
+            <div class="chip" aria-live="polite"><i></i><span class="chipText">Platform Berlin · 3 requests</span></div>
+          </div>
+        </div>
+        <ol class="steps" aria-label="How a lead is made">
+          <li class="on"><button type="button"><i class="bar"></i><span class="n">01</span><b>Watch</b><small>Saved runners pull the newest postings, logged out, in a handful of requests.</small></button></li>
+          <li><button type="button"><i class="bar"></i><span class="n">02</span><b>Remember</b><small>Every sighting lands in PostgreSQL. Three misses in a row closes a role.</small></button></li>
+          <li><button type="button"><i class="bar"></i><span class="n">03</span><b>Enrich</b><small>A worker finds the website, the people and the email format.</small></button></li>
+          <li><button type="button"><i class="bar"></i><span class="n">04</span><b>Call</b><small>The queue ranks who to call next, with a line on why now.</small></button></li>
+        </ol>
+      </div>
+      <div class="proj-foot reveal" style="--d:200ms">
+        <p class="t">Python, PostgreSQL, Docker, k3s · 608 tests · deployed behind TLS</p>
+        <div class="pills-row">
+          <button class="pill on" type="button" data-case="jobpull">Read the case study</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section class="section" id="services" aria-labelledby="services-h">
+      <h2 class="display h2 center reveal" id="services-h"><span class="grad">The services I provide</span></h2>
+      <p class="sub center reveal" style="--d:100ms">Web and mobile products built end to end, from the first prototype to launch and the months after.</p>
+      <ol class="svc reveal" style="--d:180ms">
+        <li>
+          <span class="circ num" aria-hidden="true">1</span>
+          <button class="pill row" type="button" aria-expanded="false">Web applications</button>
+          <span class="circ arr-d" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="panel"><div><p>React and TypeScript front ends with the data layer, authentication and admin tools behind them.</p></div></div>
+        </li>
+        <li>
+          <span class="circ num" aria-hidden="true">2</span>
+          <button class="pill row" type="button" aria-expanded="false">Mobile apps</button>
+          <span class="circ arr-d" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="panel"><div><p>React Native apps that share code and design with the web product instead of forking it.</p></div></div>
+        </li>
+        <li class="open">
+          <span class="circ num" aria-hidden="true">3</span>
+          <button class="pill row" type="button" aria-expanded="true">Backend &amp; APIs</button>
+          <span class="circ arr-d" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="panel"><div><p>Node services, PostgreSQL schemas, queues, integrations with payments and CRMs, and documentation people can use.</p></div></div>
+        </li>
+        <li>
+          <span class="circ num" aria-hidden="true">4</span>
+          <button class="pill row" type="button" aria-expanded="false">UI engineering</button>
+          <span class="circ arr-d" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="panel"><div><p>Design systems, motion and accessibility work that turns a Figma file into an interface that feels finished.</p></div></div>
+        </li>
+        <li>
+          <span class="circ num" aria-hidden="true">5</span>
+          <button class="pill row" type="button" aria-expanded="false">Performance &amp; rescue</button>
+          <span class="circ arr-d" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="panel"><div><p>Slow, fragile or abandoned codebases brought back under control, with tests and a plan.</p></div></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ================= LET'S TALK ================= -->
+    <footer class="talk" id="contact"><div class="inner">
+      <h2 class="display"><span class="grad-light">Let&#8217;s talk</span></h2>
+      <nav class="pills-row" aria-label="Elsewhere">
+        <a class="pill lg on" href="https://github.com/KhaledBouden" target="_blank" rel="noopener">GitHub<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        <a class="pill lg" href="khaled-bouden-cv.pdf" target="_blank" rel="noopener">CV · PDF<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+      </nav>
+      <div class="legal"><span>&#169; 2026 Khaled Bouden. All rights reserved.</span><span>Tunis <span id="clock"></span></span></div>
+    </div></footer>
+  </main>
+</div>
+
+<!-- ================= CASE STUDY · TABEEBI ================= -->
+<dialog class="case" id="case-tabeebi" aria-labelledby="case-title-tabeebi">
+  <div class="case-head">
+    <span class="t">Case study · Tabeebi</span>
+    <button class="circ case-close" type="button" aria-label="Close case study"><svg viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <span class="prog" aria-hidden="true"><i></i></span>
+  </div>
+  <div class="case-body">
+    <aside class="chapters" aria-label="Chapters"><div class="chapters-in">
+      <ol>
+        <li class="on"><a href="#t-overview">Overview</a></li>
+        <li><a href="#t-challenge">Challenge</a></li>
+        <li><a href="#t-solution">Solution</a></li>
+        <li><a href="#t-patient">Patient app</a></li>
+        <li><a href="#t-clinic">Clinic dashboard</a></li>
+        <li><a href="#t-result">Result</a></li>
+      </ol>
+      <p class="hint">Arrow keys move between chapters. Esc closes.</p>
+    </div></aside>
+    <div class="case-in">
+      <img class="case-hero" src="assets/tabeebi/hlx-project-1.webp" loading="lazy" decoding="async" alt="Two phones showing the Tabeebi patient app">
+
+      <section class="ch" id="t-overview">
+        <h3 class="display" id="case-title-tabeebi"><span class="grad">Tabeebi</span></h3>
+        <p class="lead">Healthcare booking platform in the UAE</p>
+        <dl class="facts">
+          <div><dt>Client</dt><dd>Tabeebi</dd></div>
+          <div><dt>Industry</dt><dd>Healthcare</dd></div>
+          <div><dt>Platforms</dt><dd>iOS, Android, web</dd></div>
+          <div><dt>Languages</dt><dd>English, Arabic</dd></div>
+          <div><dt>My role</dt><dd>Design, mobile, web, backend, data pipeline</dd></div>
+          <div><dt>Status</dt><dd>Live in all seven emirates</dd></div>
+        </dl>
+        <p class="overview">Tabeebi is two products that must never disagree. Patients find a verified specialist and hold a real appointment in a couple of taps. Clinics run their doctors, their front desk, and every branch calendar from one dashboard. I built both sides, and the layer underneath that keeps them true to each other.</p>
+      </section>
+
+      <section class="ch" id="t-challenge">
+        <h4><span class="n">01</span>Where a booking system usually breaks</h4>
+        <p>Provider listings arrived from a dozen sources, and no two agreed on a phone number. Two patients could tap the same slot in the same second. Every screen had to read naturally in English and in Arabic, in opposite directions. Any one of the three, left alone, makes the app lie to somebody.</p>
+        <div class="demo" id="dedupe">
+          <div class="demo-head"><span class="t">Raw listings · 3 sources</span><button class="pill" type="button" id="runPipe">Run the nightly pipeline</button></div>
+          <ul class="rows">
+            <li class="raw"><span>Al Noor Clinic</span><span>+971 50 123 4567</span><em>Source A</em></li>
+            <li class="raw"><span>Al Noor Clinic</span><span>0501234567</span><em>Duplicate</em></li>
+            <li class="raw"><span>AL-NOOR CLINIC</span><span>971501234567</span><em>Source C</em></li>
+            <li class="clean"><span>Al Noor Clinic</span><span>+971 50 123 4567 · Deira, Dubai</span><em>Deduped nightly</em></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="ch" id="t-solution">
+        <h4><span class="n">02</span>Solution</h4>
+        <p>A nightly pipeline folds every source into one clean record per clinic. Redis serves availability instantly, and the write path locks the slot the moment it is taken, so the second tap loses cleanly instead of double booking. The interface was built bidirectional from day one, so it flips language without breaking a pixel.</p>
+        <div class="demo" id="slots">
+          <div class="demo-head"><span class="t">Tue 14 Jul · Dr. Layla Haddad</span><span class="t" id="slotMsg">Tap a slot to hold it</span></div>
+          <div class="slotrow" id="slotrow">
+            <button class="slot" type="button" data-t="10:00">10:00</button>
+            <button class="slot" type="button" data-t="10:30">10:30</button>
+            <button class="slot taken" type="button" data-t="11:00" disabled>11:00</button>
+            <button class="slot" type="button" data-t="11:30">11:30</button>
+            <button class="slot" type="button" data-t="14:00">14:00</button>
+          </div>
+          <div class="demo-foot"><button class="pill" type="button" id="secondTap">Second patient taps the same slot</button><span class="msg" id="lockMsg">Held slots expire after five minutes if nobody confirms.</span></div>
+        </div>
+        <div class="demo" id="rtl">
+          <div class="demo-head"><span class="t">Bidirectional from day one</span>
+            <div class="toggle" role="group" aria-label="Language"><button class="pill on" type="button" data-lang="en">English</button><button class="pill" type="button" data-lang="ar" lang="ar">العربية</button></div>
+          </div>
+          <div class="ui" id="ui" dir="ltr">
+            <div class="ui-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span data-en="Name, specialty, condition" data-ar="الاسم، التخصص، الحالة">Name, specialty, condition</span></div>
+            <div class="ui-row">
+              <span class="av">LH</span>
+              <div class="txt"><b data-en="Dr. Layla Haddad" data-ar="د. ليلى حداد">Dr. Layla Haddad</b><small data-en="Cardiologist · Al Noor Clinic" data-ar="طب القلب · عيادة النور">Cardiologist · Al Noor Clinic</small></div>
+              <span class="time" data-en="Tomorrow 10:30" data-ar="غدًا 10:30">Tomorrow 10:30</span>
+              <span class="pill on" data-en="Book" data-ar="احجز">Book</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ch" id="t-patient">
+        <h4><span class="n">03</span>Patient app · the side that has to feel effortless</h4>
+        <p>Patients do not care how the calendar works. They care that the slot is real, that the reminder arrives, and that the family’s visits live in one place.</p>
+        <div class="screens">
+          <figure><img src="assets/tabeebi/result-home.webp" loading="lazy" decoding="async" alt="Home screen with search and upcoming appointments"><figcaption>Find a specialist</figcaption></figure>
+          <figure><img src="assets/tabeebi/result-doctor.webp" loading="lazy" decoding="async" alt="Doctor profile with services and next available slot"><figcaption>Choose a time</figcaption></figure>
+          <figure><img src="assets/tabeebi/result-confirmed.webp" loading="lazy" decoding="async" alt="Booking confirmed screen"><figcaption>Confirmed</figcaption></figure>
+        </div>
+        <ul class="feat">
+          <li><b>Book in a couple of taps</b><span>Search by name, location, or symptom, then hold a real slot on the spot. No phone call, no hold music, no callback to confirm.</span></li>
+          <li><b>Reminders that reach you</b><span>A nudge at 48 and 24 hours, plus a final one the patient sets, anywhere from 30 minutes to 4 hours out. Email and push, so a visit never quietly slips.</span></li>
+          <li><b>The whole family, one account</b><span>Book for the people you care for, and keep every visit in one timeline, whether the patient booked it or the clinic did.</span></li>
+        </ul>
+      </section>
+
+      <section class="ch" id="t-clinic">
+        <h4><span class="n">04</span>Clinic dashboard · the side that has to be right</h4>
+        <p>A patient sees one open slot. Behind it sit a doctor’s real day, a secretary’s queue, an owner’s staff list, and every branch calendar, and all of them have to agree. Six views onto one calendar. Nobody opens a screen they do not need.</p>
+        <img class="case-wide" src="assets/tabeebi/app-devices-hd.webp" loading="lazy" decoding="async" alt="Patient app on a phone beside the clinic dashboard on a laptop">
+        <ul class="feat">
+          <li><b>Run the front desk</b><span>Secretaries confirm bookings, add new patients, and keep every doctor’s day moving from a single screen.</span></li>
+          <li><b>A focused day for doctors</b><span>Each doctor opens Tabeebi straight to their own schedule and patient list, with nothing else in the way.</span></li>
+          <li><b>Manage your whole team</b><span>Owners add or remove staff and approve the requests from doctors and secretaries who want to join.</span></li>
+          <li><b>Schedules that stay live</b><span>Availability, days off, and visit lengths update in real time across web and mobile.</span></li>
+          <li><b>Every branch in one system</b><span>Run one clinic or ten, with bookings, queues, and records in step across all of them.</span></li>
+          <li><b>One record per patient</b><span>Every appointment, note, and prescription lands in a single patient timeline the whole team can see.</span></li>
+        </ul>
+      </section>
+
+      <section class="ch" id="t-result">
+        <h4><span class="n">05</span>Result</h4>
+        <p>Tabeebi is live across all seven emirates, on iOS, Android, and the web. Patients book, and their family’s visits stay in one account. Clinics run bookings, queues, and records for one branch or for ten. Both sides read the same calendar.</p>
+        <div class="pills-row">
+          <a class="pill on" href="https://tabeebi.ae" target="_blank" rel="noopener">See it live</a>
+          <a class="pill" href="https://horizonlux.com/work/tabeebi" target="_blank" rel="noopener">Full case study</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</dialog>
+
+<!-- ================= CASE STUDY · HELLOMULLER =================
+     DRAFT COPY: written from what the live site shows (pages, rows, catalogue count, accolades list).
+     Confirm with Khaled: role, year, platform, and anything about the brief. -->
+<dialog class="case" id="case-muller" aria-labelledby="case-title-muller">
+  <div class="case-head">
+    <span class="t">Case study · helloMuller</span>
+    <button class="circ case-close" type="button" aria-label="Close case study"><svg viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <span class="prog" aria-hidden="true"><i></i></span>
+  </div>
+  <div class="case-body">
+    <aside class="chapters" aria-label="Chapters"><div class="chapters-in">
+      <ol>
+        <li class="on"><a href="#m-overview">Overview</a></li>
+        <li><a href="#m-brief">The brief</a></li>
+        <li><a href="#m-ledger">The ledger</a></li>
+        <li><a href="#m-catalogue">The catalogue</a></li>
+        <li><a href="#m-screens">Every screen</a></li>
+        <li><a href="#m-result">Result</a></li>
+      </ol>
+      <p class="hint">Arrow keys move between chapters. Esc closes.</p>
+    </div></aside>
+    <div class="case-in">
+      <img class="case-hero" src="assets/muller/home-1440.webp" loading="lazy" decoding="async" alt="hellomuller.com: the studio mark on an orange screen">
+
+      <section class="ch" id="m-overview">
+        <h3 class="display" id="case-title-muller"><span class="grad">helloMuller</span></h3>
+        <p class="lead">Website and catalogue for a brand identity studio</p>
+        <dl class="facts">
+          <div><dt>Client</dt><dd>helloMuller Ltd</dd></div>
+          <div><dt>Sector</dt><dd>Brand identity studio</dd></div>
+          <div><dt>Pages</dt><dd>Home, projects, about</dd></div>
+          <div><dt>Catalogue</dt><dd>67 projects</dd></div>
+          <div><dt>My role</dt><dd>Design and build</dd></div>
+          <div><dt>Recognition</dt><dd>Awwwards honorable mention, 2023</dd></div>
+        </dl>
+        <p class="overview">helloMuller is the award-winning brand identity studio of Tom Muller, behind visual identities for Marvel, DC, Sony Pictures and Google. The site has one job: put the work first. One colour, one typeface, and a ledger of projects that opens row by row.</p>
+      </section>
+
+      <section class="ch" id="m-brief">
+        <h4><span class="n">01</span>A quiet frame for loud work</h4>
+        <p>A studio whose work is loud needs a frame that stays quiet. Every page is the studio orange with black type, and nothing else competes. Imagery appears only when a visitor asks for it, so the identity work is never fighting the site’s own design for attention.</p>
+        <div class="screens wide">
+          <figure><img src="assets/muller/home-1440.webp" loading="lazy" decoding="async" alt="Home page: orange screen with the helloMuller mark"><figcaption>Arrive</figcaption></figure>
+          <figure><img src="assets/muller/about-1440.webp" loading="lazy" decoding="async" alt="About page: Designing Fiction and Branding Stories in large type"><figcaption>About</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="ch" id="m-ledger">
+        <h4><span class="n">02</span>The ledger</h4>
+        <p>The home page lists featured projects as rows: title, tagline, client, services. A row expands in place into the story and the pieces, then closes again without leaving the page. Try it with the studio’s own featured projects, and filter the rows by service.</p>
+        <div class="demo" id="ledgerDemo">
+          <div class="demo-head"><span class="t">Featured projects · 8 of 12 rows</span>
+            <div class="filters" id="filters" role="group" aria-label="Filter by service">
+              <button class="pill on" type="button" data-f="">All</button>
+              <button class="pill" type="button" data-f="logo design">Logo</button>
+              <button class="pill" type="button" data-f="visual identity">Identity</button>
+              <button class="pill" type="button" data-f="publication design">Publication</button>
+              <button class="pill" type="button" data-f="typography">Type</button>
+            </div>
+          </div>
+          <ul class="ledger" id="ledger"></ul>
+        </div>
+      </section>
+
+      <section class="ch" id="m-catalogue">
+        <h4><span class="n">03</span>The catalogue</h4>
+        <p>A growing archive of projects the studio has undertaken: 67 projects catalogued on one page, in the same row system as the home page, so the archive reads like the rest of the site instead of a separate database.</p>
+        <img class="case-wide framed" src="assets/muller/projects-s1.webp" loading="lazy" decoding="async" alt="The projects catalogue: a project row expanded with its text and artwork">
+      </section>
+
+      <section class="ch" id="m-screens">
+        <h4><span class="n">04</span>Every screen</h4>
+        <p>The same orange, type and rows from a wide desktop down to a phone. Nothing is hidden on mobile. The rows stack, the type scales, and the ledger still opens in place. Drag the viewport to see the layout change.</p>
+        <div class="demo resp" id="resp">
+          <div class="demo-head"><span class="t">Drag the viewport</span><span class="t" id="respLab">1440 px · desktop layout</span></div>
+          <div class="resp-track"><div class="resp-frame" id="respFrame"><img class="d" src="assets/muller/home-s1.webp" loading="lazy" decoding="async" alt=""><img class="m" src="assets/muller/home-mobile-s1.webp" loading="lazy" decoding="async" alt=""></div></div>
+          <input type="range" id="respRange" min="360" max="1440" step="10" value="1440" aria-label="Viewport width in pixels">
+        </div>
+      </section>
+
+      <section class="ch" id="m-result">
+        <h4><span class="n">05</span>Result</h4>
+        <p>hellomuller.com carries the studio’s line, Designing Fiction &amp; Branding Stories, on every page, and it earned the studio an Awwwards honorable mention in 2023. Two years on, the same system holds a catalogue of 67 projects without a redesign.</p>
+        <div class="pills-row">
+          <a class="pill on" href="https://hellomuller.com" target="_blank" rel="noopener">Visit the site</a>
+          <a class="pill" href="https://hellomuller.com/projects.html" target="_blank" rel="noopener">The catalogue</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</dialog>
+
+<!-- ================= CASE STUDY · JOB PULL =================
+     Facts from the repo (README, docs/architecture.md, docs/masterplan.md, the test suite).
+     Every screen is the real panel fed by a mock API with invented companies and people:
+     the real store holds real contact data, which never belongs on a public page. -->
+<dialog class="case" id="case-jobpull" aria-labelledby="case-title-jobpull">
+  <div class="case-head">
+    <span class="t">Case study · Job Pull</span>
+    <button class="circ case-close" type="button" aria-label="Close case study"><svg viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <span class="prog" aria-hidden="true"><i></i></span>
+  </div>
+  <div class="case-body">
+    <aside class="chapters" aria-label="Chapters"><div class="chapters-in">
+      <ol>
+        <li class="on"><a href="#j-overview">Overview</a></li>
+        <li><a href="#j-signal">The signal</a></li>
+        <li><a href="#j-restraint">Restraint</a></li>
+        <li><a href="#j-memory">Memory</a></li>
+        <li><a href="#j-enrich">Enrichment</a></li>
+        <li><a href="#j-ship">Shipping</a></li>
+      </ol>
+      <p class="hint">Arrow keys move between chapters. Esc closes.</p>
+    </div></aside>
+    <div class="case-in">
+      <img class="case-hero" src="assets/jobpull/runs.webp" loading="lazy" decoding="async" alt="The Job Pull panel: 144 of 182 postings still open across 40 companies, and nine saved runners">
+
+      <section class="ch" id="j-overview">
+        <h3 class="display" id="case-title-jobpull"><span class="grad">Job Pull</span></h3>
+        <p class="lead">Hiring-signal engine for a software agency</p>
+        <dl class="facts">
+          <div><dt>Client</dt><dd>Software agency, internal tool</dd></div>
+          <div><dt>Built</dt><dd>September 2026</dd></div>
+          <div><dt>Stack</dt><dd>Python, aiohttp, PostgreSQL</dd></div>
+          <div><dt>Runs on</dt><dd>Docker, k3s, GitHub Actions</dd></div>
+          <div><dt>Tests</dt><dd>608</dd></div>
+          <div><dt>My role</dt><dd>Design, build, deploy</dd></div>
+        </dl>
+        <p class="overview">Job Pull watches LinkedIn’s public job listings for companies hiring the kind of engineers an agency sells, and turns them into a ranked list of people to call. A company with four open backend roles is telling you where its team is short. I designed and built all of it: the scraper, the store, the enrichment worker, the operator’s panel, and the pipeline that ships it.</p>
+      </section>
+
+      <section class="ch" id="j-signal">
+        <h4><span class="n">01</span>Hiring is the buying signal</h4>
+        <p>An agency that sells engineering capacity needs to know who is short of it this week. The job posting is the evidence. The company is the lead. So the product is not a job board: it is a list of companies sorted by how many roles they have open, with the right person at each one.</p>
+        <p>An operator saves a search once, a runner, and presses Run, or gives it a schedule. Everything else happens in the panel. Nobody opens a terminal.</p>
+        <img class="case-wide framed" src="assets/jobpull/companies.webp" loading="lazy" decoding="async" alt="Companies sorted by open roles; Northwind Robotics open with its contacts and enrichment steps">
+        <p>Every company page answers the same three questions: how many roles are open, who is reachable, and what the tool already knows. The demo data on these screens is invented; the real store holds real contacts.</p>
+      </section>
+
+      <section class="ch" id="j-restraint">
+        <h4><span class="n">02</span>Ten requests, not ten thousand</h4>
+        <p>The automated side never signs in. No account, no cookies, nothing to ban. It reads the same public pages anyone can, slowly: four to nine seconds between requests, a daily allowance per proxy, a proxy taken out the moment it is blocked, and a run that stops rather than fall back to the home connection. Keeping each run small is the whole rate-limit strategy. Toggle what a run fetches and watch its cost.</p>
+        <div class="demo" id="budget">
+          <div class="demo-head"><span class="t">One run · 50 postings</span><span class="big-num" id="budgetTotal">95</span></div>
+          <div class="pills-row" role="group" aria-label="What the run fetches">
+            <button class="pill on" type="button" aria-pressed="true" data-o="details">Full details</button>
+            <button class="pill on" type="button" aria-pressed="true" data-o="companies">Company facts</button>
+            <button class="pill" type="button" aria-pressed="false" data-o="warm">Cache warm</button>
+            <button class="pill" type="button" aria-pressed="false" data-o="repeat">Repeat run · new only</button>
+          </div>
+          <div class="meter" aria-hidden="true"><i></i><i></i><i></i></div>
+          <ul class="legend"><li>Search pages <b id="bSearch">5</b></li><li>Job details <b id="bDetails">50</b></li><li>Company pages <b id="bCompanies">40</b></li></ul>
+          <div class="demo-foot"><span class="msg" id="budgetMsg">Cold cache and full details: the most a run of 50 costs.</span><span class="t">Measured: 53 requests first run, 3 on the repeat</span></div>
+        </div>
+        <img class="case-wide framed" src="assets/jobpull/proxies.webp" loading="lazy" decoding="async" alt="Proxy health: six of seven exits answering LinkedIn search, one throttled with a 429 and resting until 11:03">
+        <p>The proxies page shows each exit’s health and what it has spent today. When one earns a 429 it rests on its own while the others carry the run.</p>
+      </section>
+
+      <section class="ch" id="j-memory">
+        <h4><span class="n">03</span>A monitor, not a scraper</h4>
+        <p>Every card a runner sees is stored as a sighting. That history answers what a list cannot: who started hiring this week, and which role just closed. A closed role usually means it was filled, and a team that just hired is a team onboarding. It is the strongest claim the tool makes, so it is the one it must never invent.</p>
+        <p>One absence proves nothing: a posting once returned a 404 and came back eight minutes later. So a role closes only after three misses in a row, by the runner that used to see it. A blocked run closes nothing. It did not look, it failed.</p>
+        <div class="demo" id="closure">
+          <div class="demo-head"><span class="t">Senior Platform Engineer · seen by “platform engineer · Berlin”</span><span class="state" id="closeState">Open</span></div>
+          <ol class="runs" id="runLine" aria-live="polite"></ol>
+          <div class="pills-row">
+            <button class="pill" type="button" data-r="seen">Run · seen</button>
+            <button class="pill" type="button" data-r="miss">Run · not seen</button>
+            <button class="pill" type="button" data-r="blocked">Run · blocked</button>
+            <button class="pill" type="button" data-r="reset">Reset</button>
+          </div>
+          <div class="demo-foot"><span class="msg" id="closeMsg">Run the runner a few times. Misses so far: 0 of 3.</span></div>
+        </div>
+      </section>
+
+      <section class="ch" id="j-enrich">
+        <h4><span class="n">04</span>From a company to a name</h4>
+        <p>A background worker takes each run’s new companies and works out the rest without touching LinkedIn. The website, accepted only when the site itself proves it. Named people from the team page, public filings and the GitHub organisation. The email format, settled from commit authors and Gravatar. Every step has its own daily budget and stops at the first challenge instead of working around it.</p>
+        <img class="case-wide framed" src="assets/jobpull/enrichment.webp" loading="lazy" decoding="async" alt="The enrichment page: every step the worker ran and what came out">
+        <ul class="feat">
+          <li><b>Direct or agency</b><span>Every posting is classed as the hiring company or a recruiter, so nobody pitches a staffing agency by mistake.</span></li>
+          <li><b>A queue with reasons</b><span>The Pipeline ranks who to call next by signal, and every rank shows the reasons behind it.</span></li>
+          <li><b>Why now, in one line</b><span>A small language model writes one line per lead from the posting and the company’s state, in the agency’s call-sheet style.</span></li>
+          <li><b>Straight into the dialer</b><span>A run downloads straight into the calling tool’s contact-import template.</span></li>
+        </ul>
+      </section>
+
+      <section class="ch" id="j-ship">
+        <h4><span class="n">05</span>Shipped like a product</h4>
+        <p>Sign-in, saved runners on a schedule, live run logs, proxy health and exports all live in one panel that follows the system theme. Every push runs the test suite inside the Docker image, publishes an immutable tag and rolls it out to a k3s cluster behind TLS. Thirty-seven design notes, including a decision log, explain why each part is the way it is.</p>
+        <div class="demo" id="themeDemo">
+          <div class="demo-head"><span class="t">The panel follows your system theme</span>
+            <div class="toggle" role="group" aria-label="Theme"><button class="pill on" type="button" data-th="light">Light</button><button class="pill" type="button" data-th="dark">Dark</button></div>
+          </div>
+          <div class="themes" id="themes"><img src="assets/jobpull/pipeline.webp" loading="lazy" decoding="async" alt="The Pipeline queue: two follow-ups due, then Halden Logistics first in Ready to contact"><img class="dk" src="assets/jobpull/pipeline-dark.webp" loading="lazy" decoding="async" alt=""></div>
+        </div>
+        <div class="screens">
+          <figure><img src="assets/jobpull/phone-pipeline.webp" loading="lazy" decoding="async" alt="The queue on a phone, with the Halden Logistics lead and its call buttons"><figcaption>The queue, on a phone</figcaption></figure>
+          <figure><img src="assets/jobpull/phone-companies.webp" loading="lazy" decoding="async" alt="Northwind Robotics' company page on a phone"><figcaption>A company, on a phone</figcaption></figure>
+          <figure><img src="assets/jobpull/phone-pipeline-dark.webp" loading="lazy" decoding="async" alt="The queue on a phone in the dark theme"><figcaption>And after dark</figcaption></figure>
+        </div>
+        <ul class="feat">
+          <li><b>608 tests</b><span>Each one gets an empty PostgreSQL schema of its own and drops it afterwards, so the suite never touches real data.</span></li>
+          <li><b>One run at a time</b><span>A machine-wide lock serialises runs from the panel, the scheduler and the command line alike.</span></li>
+          <li><b>Partial is never complete</b><span>A hard block ends the run and marks it, rather than writing half a result as if it were whole.</span></li>
+        </ul>
+        <div class="pills-row">
+          <a class="pill on" href="https://github.com/KhaledBouden" target="_blank" rel="noopener">More on GitHub</a>
+          <a class="pill" href="khaled-bouden-cv.pdf" target="_blank" rel="noopener">CV · PDF</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</dialog>
+
+<div class="menu" id="menu" role="dialog" aria-label="Menu">
+  <div class="menu-head"><span class="wordmark">Khaled<b>.</b></span><button class="circ menu-close" type="button" aria-label="Close menu"><svg viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13"/></svg></button></div>
+  <a class="big" href="#top" style="--i:0">Home<small>01</small></a>
+  <a class="big" href="#about" style="--i:1">About me<small>02</small></a>
+  <a class="big" href="#services" style="--i:2">Services<small>03</small></a>
+  <a class="big" href="#projects" style="--i:3">Projects<small>04</small></a>
+  <a class="big" href="#contact" style="--i:4">Contact<small>05</small></a>
+  <div class="socials">
+    <a class="pill" href="https://github.com/KhaledBouden" target="_blank" rel="noopener">GitHub</a>
+    <a class="pill" href="khaled-bouden-cv.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+  </div>
+</div>
+<a class="circ totop arr-ur" id="totop" href="#top" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+<script>
+(() => {
+  const doc = document.documentElement;
+  doc.classList.add('js');
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const $ = s => document.querySelector(s), $$ = (s, r) => [...(r || document).querySelectorAll(s)];
+
+  /* ---------- hero: donut.c in halftone. The torus is sampled, z-buffered into a dot grid,
+     and each dot is sized by how much light that cell's surface catches. ---------- */
+  (function Torus() {
+    const fig = $('.torus'), cv = fig.querySelector('canvas'), ctx = cv.getContext('2d');
+    const outA = $('#torusA'), outL = $('#torusL');
+    const R1 = 1, R2 = 2, K2 = 5, CELL = 8;
+    let W = 0, H = 0, dpr = 1, cols = 0, rows = 0, zbuf, lum;
+    let A = 1.1, B = .6, raf = 0, last = 0, visible = true;
+    const light = { x: -.55, y: .6 }, aim = { x: -.55, y: .6 };
+    const trig = step => { const c = [], s = []; for (let a = 0; a < 6.283; a += step) { c.push(Math.cos(a)); s.push(Math.sin(a)); } return [c, s]; };
+    const [CT, ST] = trig(.06), [CP, SP] = trig(.018);
+    function size() {
+      const r = cv.getBoundingClientRect();
+      if (r.width < 4) return false;
+      dpr = Math.min(2, devicePixelRatio || 1);
+      W = cv.width = Math.round(r.width * dpr); H = cv.height = Math.round(r.height * dpr);
+      cols = Math.ceil(W / (CELL * dpr)); rows = Math.ceil(H / (CELL * dpr));
+      zbuf = new Float32Array(cols * rows); lum = new Float32Array(cols * rows);
+      return true;
+    }
+    function draw() {
+      if (!W && !size()) return;
+      const c = CELL * dpr, K1 = W * .5, cx = W / 2, cy = H * .56;
+      zbuf.fill(0); lum.fill(0);
+      const cA = Math.cos(A), sA = Math.sin(A), cB = Math.cos(B), sB = Math.sin(B);
+      let lx = light.x, ly = light.y, lz = -1; const ln = Math.hypot(lx, ly, lz); lx /= ln; ly /= ln; lz /= ln;
+      for (let i = 0; i < CT.length; i++) {
+        const ct = CT[i], st = ST[i], ring = R2 + R1 * ct;
+        for (let j = 0; j < CP.length; j++) {
+          const cp = CP[j], sp = SP[j];
+          /* point and normal on the torus, rotated about X by A, then about Z by B */
+          let x = ring * cp, y = R1 * st, z = ring * sp, nx = ct * cp, ny = st, nz = ct * sp;
+          let y1 = y * cA - z * sA, z1 = y * sA + z * cA; y = y1; z = z1;
+          y1 = ny * cA - nz * sA; z1 = ny * sA + nz * cA; ny = y1; nz = z1;
+          let x1 = x * cB - y * sB; y1 = x * sB + y * cB; x = x1; y = y1;
+          x1 = nx * cB - ny * sB; y1 = nx * sB + ny * cB; nx = x1; ny = y1;
+          const ooz = 1 / (z + K2), px = cx + K1 * ooz * x, py = cy - K1 * ooz * y;
+          const gx = (px / c) | 0, gy = (py / c) | 0;
+          if (gx < 0 || gy < 0 || gx >= cols || gy >= rows) continue;
+          const k = gy * cols + gx;
+          if (ooz > zbuf[k]) { zbuf[k] = ooz; lum[k] = Math.max(0, nx * lx + ny * ly + nz * lz); }
+        }
+      }
+      ctx.fillStyle = '#0C0C0C'; ctx.fillRect(0, 0, W, H);
+      const faint = new Path2D(), lit = new Path2D(), dim = new Path2D(), rMax = c * .5;
+      for (let gy = 0; gy < rows; gy++) for (let gx = 0; gx < cols; gx++) {
+        const k = gy * cols + gx, x = gx * c + c / 2, y = gy * c + c / 2;
+        if (!zbuf[k]) { faint.moveTo(x + dpr * .7, y); faint.arc(x, y, dpr * .7, 0, 6.283); continue; }
+        const L = lum[k], r = rMax * (.16 + .84 * Math.pow(L, 1.6));
+        const path = L > .5 ? lit : dim; path.moveTo(x + r, y); path.arc(x, y, r, 0, 6.283);
+      }
+      ctx.fillStyle = 'rgba(255,255,255,.1)'; ctx.fill(faint);
+      ctx.fillStyle = '#6d6d6a'; ctx.fill(dim);
+      ctx.fillStyle = '#F4F4F2'; ctx.fill(lit);
+      const deg = Math.round(((A * 180 / Math.PI) % 360 + 360) % 360);
+      const hrs = ((Math.atan2(light.x, light.y) / (2 * Math.PI)) * 12 + 12) % 12, h = Math.floor(hrs) || 12, m = Math.round((hrs % 1) * 2) * 30;
+      outA.textContent = 'Rot ' + String(deg).padStart(3, '0') + '°';
+      outL.textContent = 'Light ' + (m === 60 ? (h % 12) + 1 : h) + ':' + (m === 60 || m === 0 ? '00' : '30');
+    }
+    function frame(now) {
+      const dt = Math.min(48, now - (last || now)); last = now;
+      A += dt * .00042; B += dt * .00019;
+      light.x += (aim.x - light.x) * .08; light.y += (aim.y - light.y) * .08;
+      draw();
+      raf = visible && document.visibilityState === 'visible' ? requestAnimationFrame(frame) : 0;
+    }
+    function start() { if (!RM && !raf) { last = 0; raf = requestAnimationFrame(frame); } }
+    /* the light follows the pointer anywhere over the hero, measured from the torus centre */
+    $('.hero').addEventListener('pointermove', e => {
+      const r = cv.getBoundingClientRect();
+      aim.x = Math.max(-1.4, Math.min(1.4, (e.clientX - (r.left + r.width / 2)) / (r.width * .6)));
+      aim.y = Math.max(-1.4, Math.min(1.4, -(e.clientY - (r.top + r.height * .55)) / (r.height * .6)));
+      if (RM) { light.x = aim.x; light.y = aim.y; draw(); }
+    });
+    new ResizeObserver(() => { if (size()) draw(); }).observe(cv);
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) start(); }).observe(fig);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') start(); });
+    size(); draw(); start();
+  })();
+
+  /* ---------- scroll reveals ---------- */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: .05 });
+  $$('.reveal').forEach(el => { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in'); else io.observe(el); });
+
+  /* ---------- project stages: stepped walkthroughs ---------- */
+  const STEP_DUR = 5200;
+  const CHIPS = {
+    tabeebi: [
+      { text: 'Tue 14 Jul · 10:30 open', cls: '' },
+      { text: '10:30 held · no double booking', cls: 'held' },
+      { text: '10:30 confirmed · Maya A.', cls: 'done' },
+      { text: 'Reminder sent · 24 hours before', cls: 'done' }
+    ],
+    muller: [
+      { text: 'hellomuller.com · the curtain', cls: '' },
+      { text: 'Featured projects · 12 rows', cls: 'done' },
+      { text: 'Oakley Future Genesis · open', cls: 'held' },
+      { text: 'projects.html · 67 catalogued', cls: 'done' }
+    ],
+    jobpull: [
+      { text: 'Platform Berlin · 3 requests', cls: '' },
+      { text: '40 companies · 144 open roles', cls: 'done' },
+      { text: 'Northwind Robotics · 3 people found', cls: 'held' },
+      { text: 'Ready to contact · 94 leads', cls: 'done' }
+    ]
+  };
+  function Stage(root) {
+    const chips = CHIPS[root.dataset.stage] || [];
+    const steps = root.querySelector('.steps'), items = $$('li', steps), screens = $$('.scr, .log ol', root), chip = root.querySelector('.chip'), chipText = root.querySelector('.chipText'), devices = root.querySelector('.devices');
+    steps.style.setProperty('--dur', STEP_DUR + 'ms');
+    let step = 0, timer = 0, visible = false, paused = false;
+    function set(i) {
+      step = (i + items.length) % items.length;
+      items.forEach((li, k) => { li.classList.toggle('on', k === step); li.classList.toggle('done', k < step); });
+      screens.forEach(s => s.classList.toggle('on', +s.dataset.step === step));
+      if (chips[step]) { chip.className = 'chip ' + chips[step].cls; chipText.textContent = chips[step].text; if (!RM) { chip.classList.remove('pop'); void chip.offsetWidth; chip.classList.add('pop'); } }
+      schedule();
+    }
+    function schedule() { clearTimeout(timer); if (RM || !visible || paused) return; timer = setTimeout(() => set(step + 1), STEP_DUR); }
+    function restartBar() { const on = items[step]; on.classList.remove('on'); void on.offsetWidth; on.classList.add('on'); }
+    function setPaused(p) { paused = p; steps.classList.toggle('paused', p); if (p) clearTimeout(timer); else { restartBar(); schedule(); } }
+    items.forEach((li, k) => li.querySelector('button').addEventListener('click', () => set(k)));
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) { restartBar(); schedule(); } else clearTimeout(timer); }, { threshold: .35 }).observe(root);
+    root.addEventListener('pointerenter', () => setPaused(true));
+    root.addEventListener('pointerleave', () => setPaused(false));
+    root.addEventListener('focusin', () => setPaused(true));
+    root.addEventListener('focusout', e => { if (!root.contains(e.relatedTarget)) setPaused(false); });
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') schedule(); else clearTimeout(timer); });
+    if (FINE && !RM) {
+      let pend = false, px = 0, py = 0;
+      root.addEventListener('pointermove', e => {
+        const r = root.getBoundingClientRect(); px = (e.clientX - r.left) / r.width - .5; py = (e.clientY - r.top) / r.height - .5;
+        if (pend) return; pend = true;
+        requestAnimationFrame(() => { pend = false; devices.style.transform = 'perspective(1400px) rotateX(' + (-py * 5).toFixed(2) + 'deg) rotateY(' + (px * 7).toFixed(2) + 'deg)'; });
+      });
+      root.addEventListener('pointerleave', () => { devices.style.transform = ''; });
+    }
+  }
+  $$('.stage[data-stage]').forEach(Stage);
+
+  /* ---------- case study overlays: chapters, progress, keyboard ---------- */
+  function Case(dlg, onClose) {
+    const body = dlg.querySelector('.case-body'), prog = dlg.querySelector('.prog i'), navItems = $$('.chapters li', dlg), chapters = $$('.ch', dlg);
+    let spy = null, ticking = false;
+    const setActive = i => navItems.forEach((li, k) => li.classList.toggle('on', k === i));
+    const updateProg = () => { const max = body.scrollHeight - body.clientHeight; prog.style.transform = 'scaleX(' + (max > 0 ? body.scrollTop / max : 0).toFixed(4) + ')'; };
+    const go = i => chapters[i].scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
+    body.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; updateProg(); }); } }, { passive: true });
+    navItems.forEach((li, k) => li.querySelector('a').addEventListener('click', e => { e.preventDefault(); go(k); }));
+    dlg.querySelector('.case-close').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', () => { doc.classList.remove('locked'); if (spy) spy.disconnect(); if (onClose) onClose(); });
+    dlg.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      if (e.target.closest('input, textarea')) return;
+      e.preventDefault();
+      const cur = navItems.findIndex(li => li.classList.contains('on'));
+      go(Math.min(chapters.length - 1, Math.max(0, cur + (e.key === 'ArrowDown' ? 1 : -1))));
+    });
+    return { open() {
+      dlg.showModal(); doc.classList.add('locked'); body.scrollTop = 0; setActive(0); updateProg();
+      spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setActive(chapters.indexOf(e.target)); }), { root: body, rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+      chapters.forEach(c => spy.observe(c));
+    } };
+  }
+  const cases = { tabeebi: Case($('#case-tabeebi'), () => stopHold()), muller: Case($('#case-muller')), jobpull: Case($('#case-jobpull')) };
+  $$('[data-case]').forEach(b => b.addEventListener('click', () => cases[b.dataset.case].open()));
+
+  /* Tabeebi demo 1: nightly pipeline dedupe */
+  const dedupe = $('#dedupe'), runPipe = $('#runPipe');
+  runPipe.addEventListener('click', () => {
+    const done = dedupe.classList.toggle('done');
+    runPipe.textContent = done ? 'Reset the listings' : 'Run the nightly pipeline';
+    dedupe.querySelector('.demo-head .t').textContent = done ? 'Clean record · 1 clinic' : 'Raw listings · 3 sources';
+  });
+
+  /* Tabeebi demo 2: slot locking */
+  const slotMsg = $('#slotMsg'), lockMsg = $('#lockMsg'), slotBtns = $$('#slotrow .slot:not(.taken)');
+  let held = null, holdTimer = 0, holdLeft = 0;
+  function stopHold() { clearInterval(holdTimer); holdTimer = 0; }
+  function renderHold() { if (!held) return; const m = String(Math.floor(holdLeft / 60)).padStart(2, '0'), s = String(holdLeft % 60).padStart(2, '0'); held.textContent = held.dataset.t + ' · ' + m + ':' + s; }
+  function release(msg) { if (held) { held.classList.remove('held'); held.textContent = held.dataset.t; held = null; } stopHold(); slotMsg.textContent = msg || 'Tap a slot to hold it'; }
+  slotBtns.forEach(b => b.addEventListener('click', () => {
+    if (held === b) { slotMsg.textContent = b.dataset.t + ' is already yours'; return; }
+    release();
+    held = b; b.classList.add('held'); holdLeft = 5 * 60 - 1; renderHold();
+    slotMsg.textContent = b.dataset.t + ' held · locked on the write path';
+    lockMsg.textContent = 'The clinic calendar shows ' + b.dataset.t + ' as held right now.';
+    stopHold(); holdTimer = setInterval(() => { holdLeft--; if (holdLeft <= 0) { release('Hold expired · ' + b.dataset.t + ' is open again'); lockMsg.textContent = 'Nobody confirmed in five minutes, so the slot went back on the market.'; } else renderHold(); }, 1000);
+  }));
+  $('#secondTap').addEventListener('click', () => {
+    if (!held) { lockMsg.textContent = 'Hold a slot first, then let the second patient try.'; return; }
+    held.classList.remove('shake'); void held.offsetWidth; held.classList.add('shake');
+    lockMsg.textContent = 'Second tap on ' + held.dataset.t + ' lost cleanly. No double booking.';
+  });
+
+  /* Tabeebi demo 3: bidirectional interface */
+  const ui = $('#ui');
+  $$('#rtl [data-lang]').forEach(b => b.addEventListener('click', () => {
+    const lang = b.dataset.lang;
+    $$('#rtl [data-lang]').forEach(x => x.classList.toggle('on', x === b));
+    const apply = () => { ui.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr'); ui.setAttribute('lang', lang); $$('#ui [data-en]').forEach(el => { el.textContent = el.dataset[lang]; }); ui.classList.remove('swap'); };
+    if (RM) { apply(); return; }
+    ui.classList.add('swap'); setTimeout(apply, 220);
+  }));
+
+  /* helloMuller demo 1: the ledger, with the studio's own featured projects */
+  const LEDGER = [
+    { t: 'Oakley Future Genesis', c: 'Oakley', s: 'Art direction, publication design', tag: 'Visions of the future written from echoes of the past.', body: 'Three original comics for Oakley’s Future Genesis initiative, connecting the legacy of Max Fearlight and the 1992 TV spot to the future of the brand.' },
+    { t: 'Crossfire', c: 'That’s No Moon', s: 'Logo design, visual identity, toolkit, guidelines', tag: 'Unite to Survive.', body: 'Logo and identity for That’s No Moon’s debut AAA game, typographically driven and rooted in the visual language of topographical mapping.' },
+    { t: 'Supervive', c: 'Theorycraft Games', s: 'Visual identity, marketing design, guidelines', tag: 'Pure Rush!', body: 'A marketing identity that captures the kinetic energy of the gameplay so players feel the rush as the game launches.' },
+    { t: 'The World To Come', c: 'Marvel Entertainment', s: 'Visual identity, publication design, typography, design system, packaging', tag: 'Relaunching Marvel Knights.', body: 'A type-focused expression rooted in current affairs reporting and newspaper editorial, through a pop culture lens.' },
+    { t: 'Drifter: Omnia', c: 'Deathray', s: 'Publication design, typography, packaging', tag: 'The acclaimed sci-fi epic rebuilt as a single designed object.', body: 'An oversized 500 page slipcased hardcover with spot gloss, fluorescent inks and die cut finishes.' },
+    { t: 'X-Men', c: 'Marvel Entertainment', s: 'Logo design, visual identity, design system, typography, publication design', tag: 'Rebranding a pop culture icon.', body: 'A new X brand mark and a comprehensive publication program with bespoke typography, logos, book and cover design. People have the tattoos to prove it.' },
+    { t: 'Top Gear', c: 'BBC Studios Creative', s: 'Visual identity, typography, brand toolkit', tag: 'The Cog in the machine.', body: 'A finely retuned word mark and new monogram in an identity system that heroes a new, optimised, iconic cog.' },
+    { t: 'Skyrim 10th Anniversary', c: 'AKQA for Bethesda', s: 'Logo design, guidelines, SKU pack art', tag: 'Celebrating a gaming icon.', body: 'Anniversary mark, guidelines and pack art for the biggest game in the Elder Scrolls franchise.' }
+  ];
+  const ledger = $('#ledger');
+  ledger.innerHTML = LEDGER.map(p => '<li data-s="' + p.s.toLowerCase() + '"><button class="lrow" type="button" aria-expanded="false"><b>' + p.t + '</b><span class="cl">' + p.c + '</span><span class="sv">' + p.s + '</span><i>+</i></button><div class="lpanel"><div><p><em>' + p.tag + '</em> ' + p.body + '</p></div></div></li>').join('');
+  $$('#ledger li').forEach(li => li.querySelector('.lrow').addEventListener('click', () => {
+    const open = li.classList.contains('open');
+    $$('#ledger li').forEach(o => { o.classList.remove('open'); o.querySelector('.lrow').setAttribute('aria-expanded', 'false'); });
+    if (!open) { li.classList.add('open'); li.querySelector('.lrow').setAttribute('aria-expanded', 'true'); }
+  }));
+  const ledgerLabel = $('#ledgerDemo .demo-head .t');
+  $$('#filters .pill').forEach(b => b.addEventListener('click', () => {
+    $$('#filters .pill').forEach(x => x.classList.toggle('on', x === b));
+    const f = b.dataset.f; let n = 0;
+    $$('#ledger li').forEach(li => { const show = !f || li.dataset.s.includes(f); li.hidden = !show; if (show) n++; else li.classList.remove('open'); });
+    ledgerLabel.textContent = f ? n + ' of 8 rows · ' + b.textContent.toLowerCase() : 'Featured projects · 8 of 12 rows';
+  }));
+
+  /* helloMuller demo 2: drag the viewport */
+  const respRange = $('#respRange'), respFrame = $('#respFrame'), respLab = $('#respLab');
+  function resp() {
+    const v = +respRange.value;
+    respFrame.style.width = (v / 1440 * 100).toFixed(1) + '%';
+    respFrame.classList.toggle('mobile', v < 768);
+    respLab.textContent = v + ' px · ' + (v < 768 ? 'mobile layout' : 'desktop layout');
+  }
+  respRange.addEventListener('input', resp); resp();
+
+  /* Job Pull demo 1: what a run of 50 postings costs. Anchored to the README's measured runs:
+     cold + details + companies ≈ 95, warm + details ≈ 55, warm without details ≈ 10, caught-up repeat ≈ 3. */
+  const budgetOpts = { details: true, companies: true, warm: false, repeat: false };
+  const bSegs = $$('#budget .meter i'), bTotal = $('#budgetTotal'), bMsg = $('#budgetMsg');
+  function budget() {
+    const o = budgetOpts;
+    const search = o.repeat ? 2 : 5;
+    const details = o.details ? (o.repeat ? 1 : 50) : 0;
+    const companies = o.companies ? (o.warm ? (o.repeat ? 0 : 5) : (o.repeat ? 1 : 40)) : 0;
+    const total = search + details + companies;
+    [search, details, companies].forEach((v, i) => { bSegs[i].style.width = (v / 95 * 100).toFixed(2) + '%'; });
+    $('#bSearch').textContent = search; $('#bDetails').textContent = details; $('#bCompanies').textContent = companies;
+    bTotal.textContent = total;
+    bMsg.textContent = o.repeat ? 'A caught-up runner stops after two all-seen pages and fetches only what is new.'
+      : total >= 90 ? 'Cold cache and full details: the most a run of 50 costs.'
+      : o.details ? 'Details are half the cost, and they are refreshed once a week, not every run.'
+      : 'Company facts change yearly, so a 30-day cache makes them nearly free.';
+  }
+  $$('#budget [data-o]').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.o; budgetOpts[k] = !budgetOpts[k];
+    b.classList.toggle('on', budgetOpts[k]); b.setAttribute('aria-pressed', String(budgetOpts[k])); budget();
+  }));
+  budget();
+
+  /* Job Pull demo 2: closure detection. Three consecutive misses by the runner that saw it close a role;
+     a sighting resets the count; a blocked run is ignored. */
+  const runLine = $('#runLine'), closeState = $('#closeState'), closeMsg = $('#closeMsg'), runBtns = $$('#closure [data-r]');
+  let runN = 0, misses = 0, closed = false;
+  function addRun(cls, glyph, label) {
+    const li = document.createElement('li'); li.className = cls;
+    li.innerHTML = '<i aria-hidden="true">' + glyph + '</i><span>' + label + '</span>';
+    runLine.appendChild(li);
+    while (runLine.children.length > 9) runLine.firstElementChild.remove();
+  }
+  function closure(kind) {
+    if (kind === 'reset') { runLine.innerHTML = ''; runN = 0; misses = 0; closed = false; closeState.textContent = 'Open'; closeState.classList.remove('closed'); runBtns.forEach(b => { b.disabled = false; }); closeMsg.textContent = 'Run the runner a few times. Misses so far: 0 of 3.'; return; }
+    if (closed) return;
+    runN++;
+    if (kind === 'seen') { misses = 0; addRun('seen', '', 'Run ' + runN); closeMsg.textContent = 'Seen again, so the count goes back to zero. Misses: 0 of 3.'; }
+    if (kind === 'blocked') { addRun('blocked', '×', 'Run ' + runN); closeMsg.textContent = 'Blocked runs did not look, they failed. Ignored. Misses still ' + misses + ' of 3.'; }
+    if (kind === 'miss') {
+      misses++; addRun('miss', '', 'Run ' + runN);
+      if (misses < 3) closeMsg.textContent = 'Not seen. One absence proves nothing. Misses: ' + misses + ' of 3.';
+      else {
+        closed = true; addRun('closed', 'Closed', 'Filled?');
+        closeState.textContent = 'Closed · likely filled'; closeState.classList.add('closed');
+        closeMsg.textContent = 'Three misses in a row by the runner that used to see it. The team just hired: a good week to call.';
+        runBtns.forEach(b => { b.disabled = b.dataset.r !== 'reset'; });
+      }
+    }
+  }
+  runBtns.forEach(b => b.addEventListener('click', () => closure(b.dataset.r)));
+
+  /* Job Pull demo 3: the panel in light and dark */
+  const themes = $('#themes');
+  $$('#themeDemo [data-th]').forEach(b => b.addEventListener('click', () => {
+    $$('#themeDemo [data-th]').forEach(x => x.classList.toggle('on', x === b));
+    themes.classList.toggle('dark', b.dataset.th === 'dark');
+  }));
+
+  /* ---------- services accordion ---------- */
+  const items = $$('.svc li');
+  items.forEach(li => {
+    const btn = li.querySelector('.row');
+    btn.addEventListener('click', () => {
+      const open = li.classList.contains('open');
+      items.forEach(o => { o.classList.remove('open'); o.querySelector('.row').setAttribute('aria-expanded', 'false'); });
+      if (!open) { li.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+    });
+  });
+
+  /* ---------- menu ---------- */
+  const menu = $('#menu'), burger = $('.burger');
+  function setMenu(o) { menu.classList.toggle('open', o); doc.classList.toggle('locked', o); burger.setAttribute('aria-expanded', String(o)); }
+  burger.addEventListener('click', () => setMenu(true));
+  menu.querySelector('.menu-close').addEventListener('click', () => setMenu(false));
+  $$('#menu a.big').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('open')) setMenu(false); });
+
+  /* ---------- back to top ---------- */
+  const totop = $('#totop');
+  new IntersectionObserver(es => totop.classList.toggle('show', !es[0].isIntersecting && scrollY > innerHeight * .5)).observe($('.hero'));
+
+  /* ---------- local time ---------- */
+  const clock = $('#clock');
+  function setClock() { try { clock.textContent = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Tunis', hour: '2-digit', minute: '2-digit' }).format(new Date()); } catch (err) { clock.textContent = ''; } }
+  setClock(); setInterval(setClock, 30000);
+})();
+</script>
+</body>
+</html>
